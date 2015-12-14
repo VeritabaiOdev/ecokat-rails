@@ -46,3 +46,7 @@ group :development do
 end
 
 gem 'pry-rails'
+gem 'foundation-rails'
+gem 'devise'
+gem 'cancancan', '~> 1.10'
+gem 'rails_admin', '~> 0.8.1'

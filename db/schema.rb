@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213190614) do
-
-  create_table "Authors_Books", id: false, force: :cascade do |t|
-    t.integer "author_id", null: false
-    t.integer "book_id",   null: false
-  end
+ActiveRecord::Schema.define(version: 20151214134945) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "authors_books", id: false, force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.integer "book_id",   null: false
+  end
+
+  add_index "authors_books", ["author_id", "book_id"], name: "index_authors_books_on_author_id_and_book_id"
+  add_index "authors_books", ["book_id", "author_id"], name: "index_authors_books_on_book_id_and_author_id"
 
   create_table "books", force: :cascade do |t|
     t.string   "name"
@@ -90,8 +93,22 @@ ActiveRecord::Schema.define(version: 20151213190614) do
     t.string   "country"
     t.string   "mail"
     t.string   "birth_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.boolean  "is_admin",               default: false
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
