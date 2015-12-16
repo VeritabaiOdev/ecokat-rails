@@ -1,7 +1,13 @@
 class Book < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   belongs_to :author
   belongs_to :category
   has_and_belongs_to_many :authors
+
+  acts_as_commentable
+
 
   has_attached_file :avatar, styles: { large: "300x", medium: "300x", thumb: "100x100>" }, convert_options: {
       large: " -gravity center -crop '300x400+0+0'",

@@ -32,51 +32,39 @@
             <div class="small secondary expanded button-group">
                <a class="button">Facebook</a>
                <a class="button">Twitter</a>
-               <a class="button">Yo</a>
+               <a class="button">Instagram</a>
             </div>
          </div>
       </div>
       <div class="column row">
          <hr>
          <ul class="tabs" data-tabs id="example-tabs">
-            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Reviews</a></li>
+            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Comments</a></li>
             <li class="tabs-title"><a href="#panel2">Similar Products</a></li>
          </ul>
          <div class="tabs-content" data-tabs-content="example-tabs">
             <div class="tabs-panel is-active" id="panel1">
-               <h4>Reviews</h4>
-               <div class="media-object stack-for-small">
-                  <div class="media-object-section">
-                     <img class="thumbnail" src="http://placehold.it/200x200">
-                  </div>
-                  <div class="media-object-section">
-                     <h5>Mike Stevenson</h5>
-                     <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you.</p>
-                  </div>
-               </div>
-               <div class="media-object stack-for-small">
-                  <div class="media-object-section">
-                     <img class="thumbnail" src="http://placehold.it/200x200">
-                  </div>
-                  <div class="media-object-section">
-                     <h5>Mike Stevenson</h5>
-                     <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-                  </div>
-               </div>
-               <div class="media-object stack-for-small">
-                  <div class="media-object-section">
-                     <img class="thumbnail" src="http://placehold.it/200x200">
-                  </div>
-                  <div class="media-object-section">
-                     <h5>Mike Stevenson</h5>
-                     <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-                  </div>
-               </div>
+               <h4>Comments</h4>
+              <% @comments.each do |comment| %>
+                 <div class="media-object stack-for-small">
+                    <div class="media-object-section">
+                       <img class="thumbnail" src="http://placehold.it/200x200">
+                    </div>
+                    <div class="media-object-section">
+                       <h5><%= comment.user.first_name + " " + comment.user.last_name %></h5>
+                       <p><%= comment.comment %></p>
+                    </div>
+                 </div>
+              <% end %>
                <label>
-               My Review
-               <textarea placeholder="None"></textarea>
+               My Comment (Signed in as: <%=current_user.first_name + " " + current_user.last_name %>)
+                 <%= form_for(Comment.new) do |f| %>
+                 <%=f.text_area :comment, placeholder: "Write a comment..."%>
+                 <%=f.hidden_field :user_id, :value => current_user.id%>
+                 <%=f.hidden_field :commentable_id,{ :value => params[:id]}%>
                </label>
-               <button class="button">Submit Review</button>
+                 <%=f.submit "Send",  :class=>"button" %>
+                 <% end %>
             </div>
             <div class="tabs-panel" id="panel2">
                <div class="row medium-up-3 large-up-5">

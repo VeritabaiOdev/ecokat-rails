@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215195504) do
+ActiveRecord::Schema.define(version: 20151216133924) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -45,16 +45,33 @@ ActiveRecord::Schema.define(version: 20151215195504) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "slug"
   end
 
   add_index "books", ["author_id"], name: "index_books_on_author_id"
   add_index "books", ["category_id"], name: "index_books_on_category_id"
+  add_index "books", ["slug"], name: "index_books_on_slug", unique: true
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "title",            limit: 50, default: ""
+    t.text     "comment"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.string   "role",                        default: "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id"
+  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
@@ -65,6 +82,19 @@ ActiveRecord::Schema.define(version: 20151215195504) do
 
   add_index "favorites", ["book_id"], name: "index_favorites_on_book_id"
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "book_id"

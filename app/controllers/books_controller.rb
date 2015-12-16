@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :add_new_comment]
+  before_action :comment_params, only: [:add_new_comment]
 
   # GET /books
   # GET /books.json
@@ -12,11 +13,12 @@ class BooksController < ApplicationController
   def show
     @book.counter += 1
     @book.save
+    @comments = @book.comments.recent.limit(10).all
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params[:id])
+      @book = Book.friendly.find(params[:id])
     end
 end
