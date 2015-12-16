@@ -4,11 +4,11 @@
       <ul class="dropdown menu" data-dropdown-menu>
         <li><%= link_to "Ecokat Book Store", root_path, {:class => "menu-text"} %></li>
         <li class="has-submenu">
-          <a href="#">Categories</a>
+          <a>Categories</a>
           <ul class="submenu menu vertical" data-submenu>
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
+            <% @categories.each do |category| %>
+            <li><%= link_to category.name, category_path(category) %></li>
+            <% end %>
           </ul>
         </li>
         <li><a href="#">Authors</a></li>
@@ -19,10 +19,11 @@
         <li><input type="search" placeholder="Search"></li>
         <li><button type="button" class="button">Search</button></li>
         <% if user_signed_in?  %>
-            <li><button type="button" class="button">My Page</button></li>
-            <li><button type="button" class="button round secondary">Sign Out</button></li>
+            <li><button type="button" class="button"><%= link_to 'My Profile', edit_user_registration_path(user_session), {:style=>"color:#fff;"} %></button></li>
+            <li><button type="button" class="button round secondary"><%= link_to 'Sign Out', destroy_user_session_path, {:style=>"color:#fff;", method: :delete} %></button></li>
         <% else %>
-            <li><button type="button" class="button round secondary">Sign Up</button></li>
+            <li><button type="button" class="button round secondary"><%= link_to 'Sign In', new_user_session_path %></button></li>
+            <li><button type="button" class="button round secondary"><%= link_to 'Sign Up', new_user_registration_path %></button></li>
         <% end %>
         <li><button type="button" class="button round alert "><i class="fi-[shopping-cart]"></i>My Cart</button></li>
       </ul>

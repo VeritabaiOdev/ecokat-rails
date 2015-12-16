@@ -45,59 +45,54 @@
          <div class="tabs-content" data-tabs-content="example-tabs">
             <div class="tabs-panel is-active" id="panel1">
                <h4>Comments</h4>
-              <% @comments.each do |comment| %>
-                 <div class="media-object stack-for-small">
+              <% if @comments.nil? %>
+                  <div class="media-object stack-for-small">
                     <div class="media-object-section">
-                       <img class="thumbnail" src="http://placehold.it/200x200">
+                      <img class="thumbnail" src="/comment.png">
                     </div>
                     <div class="media-object-section">
-                       <h5><%= comment.user.first_name + " " + comment.user.last_name %></h5>
-                       <p><%= comment.comment %></p>
+                      <h5>There are no comments yet</h5>
+                      <p>Comment and be the first one!</p>
                     </div>
-                 </div>
+                  </div>
+              <% else %>
+                 <% @comments.each do |comment| %>
+                   <div class="media-object stack-for-small">
+                      <div class="media-object-section">
+                         <img src="/comment.png">
+                      </div>
+                      <div class="media-object-section">
+                         <h5><%= comment.user.first_name + " " + comment.user.last_name %></h5>
+                         <p><%= comment.comment %></p>
+                      </div>
+                      </div>
+                <% end %>
               <% end %>
                <label>
-               My Comment (Signed in as: <%=current_user.first_name + " " + current_user.last_name %>)
-                 <%= form_for(Comment.new) do |f| %>
-                 <%=f.text_area :comment, placeholder: "Write a comment..."%>
-                 <%=f.hidden_field :user_id, :value => current_user.id%>
-                 <%=f.hidden_field :commentable_id,{ :value => params[:id]}%>
-               </label>
-                 <%=f.submit "Send",  :class=>"button" %>
-                 <% end %>
+               <% if current_user == nil %>
+                 Sign in to send a comment.
+               <% else %>
+                 My Comment (Signed in as: <%=current_user.first_name + " " + current_user.last_name %>)
+                   <%= form_for(Comment.new) do |f| %>
+                     <%=f.text_area :comment, placeholder: "Write a comment..."%>
+                     <%=f.hidden_field :user_id, :value => current_user.id%>
+                     <%=f.hidden_field :commentable_id,{ :value => params[:id]}%>
+                   </label>
+                     <%=f.submit "Send",  :class=>"button" %>
+                   <% end %>
+               <% end %>
             </div>
             <div class="tabs-panel" id="panel2">
                <div class="row medium-up-3 large-up-5">
-                  <div class="column">
-                     <img class="thumbnail" src="http://placehold.it/350x200">
-                     <h5>Other Product <small>$22</small></h5>
-                     <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
-                     <a href="#" class="button hollow tiny expanded">Buy Now</a>
-                  </div>
-                  <div class="column">
-                     <img class="thumbnail" src="http://placehold.it/350x200">
-                     <h5>Other Product <small>$22</small></h5>
-                     <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
-                     <a href="#" class="button hollow tiny expanded">Buy Now</a>
-                  </div>
-                  <div class="column">
-                     <img class="thumbnail" src="http://placehold.it/350x200">
-                     <h5>Other Product <small>$22</small></h5>
-                     <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
-                     <a href="#" class="button hollow tiny expanded">Buy Now</a>
-                  </div>
-                  <div class="column">
-                     <img class="thumbnail" src="http://placehold.it/350x200">
-                     <h5>Other Product <small>$22</small></h5>
-                     <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
-                     <a href="#" class="button hollow tiny expanded">Buy Now</a>
-                  </div>
-                  <div class="column">
-                     <img class="thumbnail" src="http://placehold.it/350x200">
-                     <h5>Other Product <small>$22</small></h5>
-                     <p>In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam.</p>
-                     <a href="#" class="button hollow tiny expanded">Buy Now</a>
-                  </div>
+                 <% @relateds.each do |related| %>
+                    <div class="column">
+                        <%= image_tag related.avatar.url(:medium), {:class => 'thumbnail'} %>
+                       <h8><%= related.name %></h8>
+                      <br>
+                      <small><%= number_to_currency(related.cost, unit:"") %> &#x20BA;</small>
+                      <%= link_to 'Buy Now', book_path(related), {:class => 'button hollow tiny expanded'} %>
+                    </div>
+                 <% end %>
                </div>
             </div>
          </div>

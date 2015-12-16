@@ -14,6 +14,7 @@ class BooksController < ApplicationController
     @book.counter += 1
     @book.save
     @comments = @book.comments.recent.limit(10).all
+    @relateds = @book.category.books.limit(5)
   end
 
   private
