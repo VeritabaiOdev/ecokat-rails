@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214134945) do
+ActiveRecord::Schema.define(version: 20151215195504) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
@@ -39,8 +39,12 @@ ActiveRecord::Schema.define(version: 20151214134945) do
     t.integer  "counter"
     t.integer  "stock"
     t.float    "cost"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "books", ["author_id"], name: "index_books_on_author_id"
