@@ -3,8 +3,9 @@
   <nav aria-label="You are here:" role="navigation">
     <ul class="breadcrumbs">
       <li><%= link_to "Home", root_path %></li>
+      <li>Authors </li>
       <li>
-        <span class="show-for-sr">Current: </span> <%= link_to @category.name %>
+        <span class="show-for-sr">Current: </span> <%= @author.name %>
       </li>
     </ul>
   </nav>
@@ -12,7 +13,14 @@
 <br>
 
 <div class="row column text-center">
-  <h2><%= @category.name %></h2>
+  <br>
+  <h2 align="center"><%= @author.name %></h2>
+  <br>
+</div>
+
+
+<div class="row column text-center">
+  <h3>Books</h3>
   <hr>
 </div>
 
@@ -26,3 +34,4 @@
       </div>
   <% end %>
 </div>
+<hr>

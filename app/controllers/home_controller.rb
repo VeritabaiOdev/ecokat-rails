@@ -14,4 +14,13 @@ class HomeController < ApplicationController
       @author_results = Author.all.order(id: :desc).limit(5)
     end
   end
+
+  def about
+
+  end
+
+  def contact
+
+  end
+
 end
