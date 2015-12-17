@@ -11,13 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216133924) do
+ActiveRecord::Schema.define(version: 20151216191629) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "authors", ["slug"], name: "index_authors_on_slug", unique: true
 
   create_table "authors_books", id: false, force: :cascade do |t|
     t.integer "author_id", null: false
@@ -56,7 +59,10 @@ ActiveRecord::Schema.define(version: 20151216133924) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""

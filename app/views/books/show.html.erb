@@ -17,17 +17,27 @@
          <div class="medium-8 columns">
             <h3><%= @book.name %></h3>
             <p><%= @book.content %></p>
-           <br>
-           <br>
-           <br>
             <div class="row">
-               <div class="small-3 columns">
-                  <label for="middle-label" class="middle">Quantity</label>
+
+               <div class="small-6 columns">
+                 <b>Author: </b><%= link_to @book.author.name, author_path(@book.author)%>
+                 <br>
+                 <b>Pages: </b><%= @book.page_num %>
+                 <br>
+                 <b>Published Date: </b><%= @book.published_date %>
+                 <br>
+                 <br>
+                 <h4><b>Cost: </b><%= number_to_currency(@book.cost, unit:"") %> &#x20BA;</h4>
                </div>
-               <div class="small-9 columns">
-                  <input type="text" id="middle-label" placeholder="How many do you need">
+               <div class="small-6 columns">
+                 <b>Language :</b><%= @book.language %>
+                 <br>
+                 <b>Stock Status: </b><%= @book.stock<=0 ? "Sorry, not available." : "Available!" %>
+                 <br>
+                 <b>Publisher: </b><%= @book.publisher %>
                </div>
             </div>
+           <br>
             <a href="#" class="button large expanded">Buy Now</a>
             <div class="small secondary expanded button-group">
                <a class="button">Facebook</a>

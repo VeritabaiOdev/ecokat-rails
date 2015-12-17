@@ -1,5 +1,5 @@
-<div class="top-bar">
-  <div class="row">
+<div class="top-bar" style="padding-bottom: 44px" >
+  <div class="row" >
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
         <li><%= link_to "Ecokat Book Store", root_path, {:class => "menu-text"} %></li>
@@ -16,14 +16,17 @@
     </div>
     <div class="top-bar-right">
       <ul class="menu">
-        <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
+        <li>
+        <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search ANYTHING here!" %></li>
+            <li><%= button_tag "Search" , {:class => 'button'}%></li>
+        <% end %>
         <% if user_signed_in?  %>
-            <li><button type="button" class="button"><%= link_to 'My Profile', edit_user_registration_path(user_session), {:style=>"color:#fff;"} %></button></li>
-            <li><button type="button" class="button round secondary"><%= link_to 'Sign Out', destroy_user_session_path, {:style=>"color:#fff;", method: :delete} %></button></li>
+            <li><%= link_to 'My Profile', edit_user_registration_path(user_session), {:class => 'button round seconday', :style=>"color:#fff;"} %></li>
+            <li><%= link_to 'Sign Out', destroy_user_session_path, {:class => 'button round secondary',:style=>"color:#fff;", method: :delete} %></li>
         <% else %>
-            <li><button type="button" class="button round secondary"><%= link_to 'Sign In', new_user_session_path %></button></li>
-            <li><button type="button" class="button round secondary"><%= link_to 'Sign Up', new_user_registration_path %></button></li>
+            <li><%= link_to 'Sign In', new_user_session_path, {:class => 'button round secondary'} %></li>
+            <li><%= link_to 'Sign Up', new_user_registration_path, {:class => 'button round secondary'} %></li>
         <% end %>
         <li><button type="button" class="button round alert "><i class="fi-[shopping-cart]"></i>My Cart</button></li>
       </ul>

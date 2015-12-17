@@ -1,0 +1,46 @@
+<br>
+<div class="row column text-center">
+  <h2>Search Results in Books</h2>
+  <hr>
+</div>
+
+<div class="row small-up-2 large-up-4">
+  <% if @book_results.present? %>
+    <% @book_results.each do |book| %>
+        <div class="column">
+          <%= image_tag book.avatar.url(:large), {:class => 'thumbnail'} %>
+          <h5><%= link_to book.name, book_path(book)  %></h5>
+          <p><%= number_to_currency(book.cost, unit:"") %> &#x20BA;</p>
+          <%= link_to 'Buy now!', book_path(book), {:class => 'button expanded'} %>
+        </div>
+    <% end %>
+  <% else %>
+      <p align="center">There are no books containing the term(s) <%= params[:search] %>.</p>
+  <% end %>
+</div>
+
+<hr>
+<div class="row column text-center">
+  <h2>Search Results in Authors</h2>
+  <hr>
+</div>
+<div class="row small-up-2 medium-up-3 large-up-5">
+  <% if @author_results.present? %>
+    <% @author_results.each do |author| %>
+        <div class="column" style='position: relative;'>
+
+          <%= image_tag '/author.png', {:class => "thumbnail",:style => "vertical-align: text-top;"}%>
+          <br>
+          <h8><b><center><%= link_to author.name, author_path(author) %></center></b></h8>
+          <br>
+
+          <%= link_to "Visit Author's Page", author_path(author), {:class => 'button small expanded hollow', :style => 'vertical-align: middle;'} %>
+        </div>
+    <% end %>
+  <% else %>
+    <p><center>Sorry no authors have been found.</center></p>
+  <% end %>
+</div>
+<hr>
+
+
