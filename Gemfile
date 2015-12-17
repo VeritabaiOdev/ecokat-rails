@@ -53,3 +53,4 @@ gem 'rails_admin', '~> 0.8.1'
 gem "paperclip", "~> 4.3"
 gem 'friendly_id', '~> 5.1.0'
 gem 'acts_as_commentable'
+gem 'seed_dump'
