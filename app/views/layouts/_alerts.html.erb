@@ -4,7 +4,7 @@
 		<%is_alert = alert.present? ? "alert" : ""%>
 		<div data-alert class="alert-box <%=is_alert%>">
 			<%=notice || alert%>
-			<a href="#" class="close">&times;</a>
+			<a href="#" data-dismiss="alert" class="close">&times;</a>
 		</div>
 	</div>
 <%end%>

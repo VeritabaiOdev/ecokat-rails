@@ -27,9 +27,10 @@
             <li><%= link_to 'Sign Out', destroy_user_session_path, {:class => 'button round secondary',:style=>"color:#fff;", method: :delete} %></li>
         <% else %>
             <li><%= link_to 'Sign In', new_user_session_path, {:class => 'button round secondary'} %></li>
+
             <li><%= link_to 'Sign Up', new_user_registration_path, {:class => 'button round secondary'} %></li>
         <% end %>
-        <li><button type="button" class="button round alert "><i class="fi-[shopping-cart]"></i>My Cart</button></li>
+          <li><%= link_to 'My Cart', cart_path(@shopping_cart), {:class => 'button round alert'} %></li>
       </ul>
     </div>
   </div>

@@ -7,6 +7,9 @@ class Book < ActiveRecord::Base
   has_and_belongs_to_many :authors
 
   acts_as_commentable
+  acts_as_likeable
+
+  ratyrate_rateable "rate"
 
 
   has_attached_file :avatar, styles: { large: "300x", medium: "300x", thumb: "100x100>" }, convert_options: {

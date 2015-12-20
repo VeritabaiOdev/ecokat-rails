@@ -4,6 +4,10 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
+    <div class="mb1"><%= f.text_field :first_name, autofocus: true, placeholder: "Name", class: "radius" %></div>
+
+    <div class="mb1"><%= f.text_field :last_name, autofocus: true, placeholder: "Surname", class: "radius" %></div>
+
     <div class="mb1"><%= f.email_field :email, autofocus: true, placeholder: "Email", class: "radius" %></div>
 
     <div class="mb1"><%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "radius" %></div>

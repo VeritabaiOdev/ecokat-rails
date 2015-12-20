@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :add_new_comment]
+  before_action :set_book, only: [:show, :add_new_comment, :add_to_cart]
   before_action :comment_params, only: [:add_new_comment]
 
   # GET /books

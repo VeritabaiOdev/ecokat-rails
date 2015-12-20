@@ -35,10 +35,17 @@
                  <b>Stock Status: </b><%= @book.stock<=0 ? "Sorry, not available." : "Available!" %>
                  <br>
                  <b>Publisher: </b><%= @book.publisher %>
+                 <br>
+                 <br>
+                 <div class="small-3 columns"><br><b>Rating :</b></div>
+                 <div class="small-7 columns"><%= rating_for @book, "rate", :disable_after_rate => true, :imdb_avg => true%></div>
+                 <div class="small-2 columns"></div>
+
+
                </div>
             </div>
            <br>
-            <a href="#" class="button large expanded">Buy Now</a>
+           <%= link_to 'Add To Cart', carts_path(:id=>@book), {:class => 'button large expanded', method: :post}  %>
             <div class="small secondary expanded button-group">
                <a class="button">Facebook</a>
                <a class="button">Twitter</a>

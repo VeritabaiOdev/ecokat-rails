@@ -15,4 +15,6 @@
  *= require foundation_and_overrides
  *= require motion-ui.css
  *= require foundation-icons.css
+ *= require foundation
+ *= require foundation-icons
  */

@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
   root 'home#index'
   resources :books
   resources :categories
   resources :comments
   resources :authors
+  resources :carts
+  get 'carts/:id/remove' => 'carts#remove', as: :remove
+  get 'carts/:id/clear' => 'carts#clear', as: :clear
   get '/search-results' => 'home#search'
   get '/about' => 'home#about'
   get '/contact' => 'home#contact'
