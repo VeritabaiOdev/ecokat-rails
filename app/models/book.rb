@@ -18,7 +18,16 @@ class Book < ActiveRecord::Base
   }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  validates :name, presence: true
+  validates :counter, presence: true
+
   def self.search(search)
     where("name || language || published_date || publisher LIKE ?", "%#{search}%")
+  end
+
+  rails_admin do
+     exclude_fields :slug
+     exclude_fields :author
+     exclude_fields :likes
   end
 end

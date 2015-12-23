@@ -20,7 +20,9 @@
             <div class="row">
 
                <div class="small-6 columns">
-                 <b>Author: </b><%= link_to @book.author.name, author_path(@book.author)%>
+                 <b>Author: </b><% @book.authors.each do |author| %>
+                   <%= link_to author.name, author_path(author)%>
+                  <% end %>
                  <br>
                  <b>Pages: </b><%= @book.page_num %>
                  <br>

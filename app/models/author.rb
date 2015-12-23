@@ -8,4 +8,9 @@ class Author < ActiveRecord::Base
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
   end
+
+
+    rails_admin do
+       exclude_fields :slug
+    end
 end
